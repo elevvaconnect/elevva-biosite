@@ -52,7 +52,24 @@
   .card b{display:block;font-size:.95rem;margin-bottom:4px}
   .card span{color:var(--muted);font-size:.82rem;line-height:1.35}
   .card i{display:block;width:26px;height:4px;border-radius:4px;margin-bottom:10px}
-  .hero{border-radius:18px;width:100%;display:block}
+  .carousel{position:relative}
+  .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;border-radius:18px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .track::-webkit-scrollbar{display:none}
+  .slide{flex:0 0 100%;scroll-snap-align:center;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:18px;overflow:hidden}
+  .slide img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block;background:#fff}
+  .slide .txt{padding:14px 16px 18px}
+  .slide b{display:block;font-size:1.05rem;margin-bottom:4px}
+  .slide span{color:var(--muted);font-size:.9rem;line-height:1.4}
+  .slide i{display:block;width:32px;height:4px;border-radius:4px;margin-bottom:10px}
+  .nav{position:absolute;top:40%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:0;
+    background:rgba(11,34,101,.75);color:#fff;font-size:28px;line-height:1;cursor:pointer;display:grid;place-items:center}
+  .nav.prev{left:8px}.nav.next{right:8px}
+  .dots{display:flex;justify-content:center;gap:8px;margin-top:12px}
+  .dots button{width:8px;height:8px;border-radius:8px;border:0;background:rgba(255,255,255,.35);cursor:pointer;padding:0;transition:width .2s}
+  .dots button[aria-current="true"]{width:22px;background:var(--yellow)}
+  .map{border-radius:18px;overflow:hidden;border:1px solid rgba(255,255,255,.16);background:#1a2f72}
+  .map iframe{display:block;width:100%;height:260px;border:0}
+  .addr{color:var(--muted);font-size:.92rem;margin-top:10px;line-height:1.45}
   footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:6px}
 </style>
 </head>
@@ -89,19 +106,67 @@
     </a>
   </nav>
 
-  <section>
+  <section aria-roledescription="carrossel" aria-label="Nossos serviços">
     <h2>O que fazemos</h2>
-    <div class="servicos">
-      <div class="card"><i style="background:var(--red)"></i><b>Plaquetas NFC + QR Code</b><span>Um toque e o cliente avalia, segue ou chama no WhatsApp.</span></div>
-      <div class="card"><i style="background:var(--yellow)"></i><b>Biosite</b><span>Todos os seus links em uma página com a sua marca.</span></div>
-      <div class="card"><i style="background:var(--green)"></i><b>Landing Page</b><span>A página que transforma quem clica em quem pede orçamento.</span></div>
-      <div class="card"><i style="background:var(--blue)"></i><b>Google Meu Negócio</b><span>Seu comércio aparecendo no Google e no Maps.</span></div>
+    <div class="carousel">
+      <div class="track" id="track">
+        <article class="slide">
+          <img src="img/nfc.jpg" alt="Plaqueta NFC com QR Code" loading="lazy">
+          <div class="txt"><i style="background:var(--red)"></i><b>Plaquetas NFC + QR Code</b><span>Um toque no celular e o cliente avalia, segue ou chama no WhatsApp.</span></div>
+        </article>
+        <article class="slide">
+          <img src="img/biosite.jpg" alt="Comércio conectado ao Google, biosite e landing page" loading="lazy">
+          <div class="txt"><i style="background:var(--yellow)"></i><b>Biosite</b><span>Todos os seus links em uma página com a cara da sua marca.</span></div>
+        </article>
+        <article class="slide">
+          <img src="img/landing.jpg" alt="Exemplo de landing page no celular" loading="lazy">
+          <div class="txt"><i style="background:var(--green)"></i><b>Landing Page</b><span>A página que transforma quem clica em quem pede orçamento.</span></div>
+        </article>
+        <article class="slide">
+          <img src="img/gmn.jpg" alt="Seu negócio no Google" loading="lazy">
+          <div class="txt"><i style="background:var(--blue)"></i><b>Google Meu Negócio</b><span>Seu comércio aparecendo no Google e no Maps, com perfil completo.</span></div>
+        </article>
+        <article class="slide">
+          <img src="img/ecossistema.jpg" alt="Ecossistema Elevva Connect" loading="lazy">
+          <div class="txt"><i style="background:linear-gradient(90deg,var(--red),var(--yellow),var(--green),var(--blue))"></i><b>Tudo conectado</b><span>Plaqueta, biosite, landing page e Google trabalhando juntos por você.</span></div>
+        </article>
+      </div>
+      <button class="nav prev" aria-label="Anterior">&#8249;</button>
+      <button class="nav next" aria-label="Próximo">&#8250;</button>
     </div>
+    <div class="dots" id="dots"></div>
   </section>
 
-  <img class="hero" src="img/servicos.jpg" alt="Seu comércio conectado ao Google, ao biosite e à landing page" loading="lazy">
+  <section>
+    <h2>Onde estamos</h2>
+    <div class="map">
+      <iframe title="Mapa da Elevva Connect" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=Rua+Porto+Novo,+40+-+Jardim+Sat%C3%A9lite,+S%C3%A3o+Jos%C3%A9+dos+Campos+-+SP,+12230-060&output=embed"></iframe>
+    </div>
+    <p class="addr">Rua Porto Novo, 40 – Jardim Satélite<br>São José dos Campos – SP · CEP 12230-060</p>
+    <a class="btn" style="margin-top:12px" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Porto+Novo,+40,+Jardim+Sat%C3%A9lite,+S%C3%A3o+Jos%C3%A9+dos+Campos+-+SP,+12230-060" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+      <div>Como chegar<small>Abrir rota no Google Maps</small></div>
+    </a>
+  </section>
 
   <footer>© Elevva Connect · São José dos Campos – SP</footer>
 </main>
+<script>
+(function(){
+  var track=document.getElementById('track'), dots=document.getElementById('dots');
+  var slides=track.children, n=slides.length, cur=0, timer;
+  for(var i=0;i<n;i++){(function(i){var b=document.createElement('button');b.setAttribute('aria-label','Ir para o slide '+(i+1));b.onclick=function(){go(i);restart()};dots.appendChild(b)})(i)}
+  function go(i){cur=(i+n)%n;track.scrollTo({left:slides[cur].offsetLeft,behavior:'smooth'})}
+  function mark(){for(var i=0;i<n;i++)dots.children[i].setAttribute('aria-current',i===cur)}
+  track.addEventListener('scroll',function(){var w=slides[0].offsetWidth+12;var i=Math.round(track.scrollLeft/w);if(i!==cur){cur=i;}mark()},{passive:true});
+  document.querySelector('.prev').onclick=function(){go(cur-1);restart()};
+  document.querySelector('.next').onclick=function(){go(cur+1);restart()};
+  function restart(){clearInterval(timer);timer=setInterval(function(){go(cur+1)},5000)}
+  track.addEventListener('touchstart',function(){clearInterval(timer)},{passive:true});
+  track.addEventListener('touchend',restart,{passive:true});
+  mark();restart();
+})();
+</script>
 </body>
 </html>
